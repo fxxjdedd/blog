@@ -6,6 +6,7 @@ import cn from "classnames";
 import { ThemeSwitcher } from "./_components/theme-switcher";
 
 import "./globals.css";
+import CanvasBackground from "./_components/gl/CanvasBackground";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -60,8 +61,11 @@ export default function RootLayout({
       <body
         className={cn(inter.className, "dark:bg-slate-900 dark:text-slate-400")}
       >
+        <CanvasBackground></CanvasBackground>
         <ThemeSwitcher />
-        <div className="min-h-screen">{children}</div>
+        <div className="min-h-screen flex justify-center">
+          <div className="max-w-4xl w-full px-4">{children}</div>
+        </div>
         <Footer />
       </body>
     </html>
