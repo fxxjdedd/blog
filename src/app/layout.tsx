@@ -6,7 +6,7 @@ import cn from "classnames";
 import { ThemeSwitcher } from "./_components/theme-switcher";
 
 import "./globals.css";
-import CanvasBackground from "./_components/gl/CanvasBackground";
+import VFXBackground from "./_components/page-components/VFXBackground";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -61,10 +61,12 @@ export default function RootLayout({
       <body
         className={cn(inter.className, "dark:bg-slate-900 dark:text-slate-400")}
       >
-        <CanvasBackground></CanvasBackground>
-        <ThemeSwitcher />
-        <div className="min-h-screen flex justify-center">
+        <VFXBackground vfxPath="bg" />
+        <div className="fixed inset-0 flex items-center justify-center">
           <div className="max-w-4xl w-full px-4">{children}</div>
+        </div>
+        <div className="min-h-screen flex justify-center">
+          <div className="max-w-4xl w-full px-4"></div>
         </div>
         <Footer />
       </body>
