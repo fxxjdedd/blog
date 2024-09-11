@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState } from "react";
+import React from "react";
 import { Post } from "@/interfaces/post";
 import EssayList from "./EssayList";
 
@@ -10,30 +10,17 @@ interface EssaySwitcherProps {
 
 const EssaySwitcher: React.FC<EssaySwitcherProps> = ({ allPosts }) => {
   const categories = Array.from(new Set(allPosts.map((post) => post.category)));
-  const [activeCategory, setActiveCategory] = useState(categories[0]);
-
-  const filteredPosts = allPosts.filter(
-    (post) => post.category === activeCategory
-  );
 
   return (
     <div>
-      <div className="flex space-x-4 mb-4">
-        {categories.map((category) => (
-          <button
-            key={category}
-            className={`px-4 py-2 rounded ${
-              activeCategory === category
-                ? "bg-blue-500 text-white"
-                : "bg-gray-200 text-gray-700"
-            }`}
-            onClick={() => setActiveCategory(category)}
-          >
-            {category}
-          </button>
-        ))}
-      </div>
-      <EssayList posts={filteredPosts} />
+      {categories.map((category) => (
+        <div key={category}>
+          <h2 className="text-2xl font-bold mt-8 mb-4">{category}</h2>
+          <EssayList
+            posts={allPosts.filter((post) => post.category === category)}
+          />
+        </div>
+      ))}
     </div>
   );
 };

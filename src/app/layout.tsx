@@ -1,4 +1,3 @@
-import Footer from "@/app/_components/footer";
 import { CMS_NAME, HOME_OG_IMAGE_URL } from "@/lib/constants";
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
@@ -7,6 +6,8 @@ import { ThemeSwitcher } from "./_components/theme-switcher";
 
 import "./globals.css";
 import VFXBackground from "./_components/page-components/VFXBackground";
+import EssayContainer from "./_components/page-components/EssayContainer";
+import PageMain from "./_components/page-components/PageMain";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -61,14 +62,7 @@ export default function RootLayout({
       <body
         className={cn(inter.className, "dark:bg-slate-900 dark:text-slate-400")}
       >
-        <VFXBackground vfxPath="bg" />
-        <div className="fixed inset-0 flex items-center justify-center">
-          <div className="max-w-4xl w-full px-4">{children}</div>
-        </div>
-        <div className="min-h-screen flex justify-center">
-          <div className="max-w-4xl w-full px-4"></div>
-        </div>
-        <Footer />
+        <PageMain>{children}</PageMain>
       </body>
     </html>
   );

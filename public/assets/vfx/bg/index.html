@@ -78,7 +78,7 @@
             loadingOverlay.style.display = "none";
             canvas.style.opacity = "1";
             // Send postMessage to parent when loading is complete
-            window.parent.postMessage({ type: "vfxLoaded" }, "*");
+            window.top.postMessage({ type: "vfxLoaded" }, "*");
           }, 500);
         }
       }

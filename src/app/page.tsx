@@ -9,7 +9,6 @@ export default function Index() {
   return (
     <main>
       <Container>
-        <Intro />
         <div className="mt-8">
           <EssaySwitcher allPosts={allPosts} />
         </div>

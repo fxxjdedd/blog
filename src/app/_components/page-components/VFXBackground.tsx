@@ -3,9 +3,10 @@ import React, { use, useEffect, useRef } from "react";
 
 interface VFXBackgroundProps {
   vfxPath: string;
+  onLoad?: () => void;
 }
 
-const VFXBackground: React.FC<VFXBackgroundProps> = ({ vfxPath }) => {
+const VFXBackground: React.FC<VFXBackgroundProps> = ({ vfxPath, onLoad }) => {
   const iframeRef = useRef<HTMLIFrameElement>(null);
 
   useEffect(() => {
@@ -21,6 +22,31 @@ const VFXBackground: React.FC<VFXBackgroundProps> = ({ vfxPath }) => {
 
     return () => {
       window.removeEventListener("resize", handleResize);
+    };
+  }, []);
+
+  useEffect(() => {
+    const handleIframeLoaded = () => {
+      const handleVFXLoaded = (event: MessageEvent) => {
+        if (event.data.type === "vfxLoaded") {
+          window.removeEventListener("message", handleVFXLoaded);
+          setTimeout(() => {
+            onLoad?.();
+          }, 500);
+        }
+      };
+      window.addEventListener("message", handleVFXLoaded);
+    };
+
+    // iframe issue: https://github.com/vercel/next.js/issues/39451
+    console.log("process.env.NODE_ENV", process.env.NODE_ENV);
+    if (process.env.NODE_ENV === "development") {
+      iframeRef.current!.src = `/assets/vfx/${vfxPath}/index.html`;
+    }
+
+    iframeRef.current!.addEventListener("load", handleIframeLoaded);
+    return () => {
+      iframeRef.current!.removeEventListener("load", handleIframeLoaded);
     };
   }, []);
 
