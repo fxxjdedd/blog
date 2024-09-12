@@ -44,9 +44,9 @@ const VFXBackground: React.FC<VFXBackgroundProps> = ({ vfxPath, onLoad }) => {
       iframeRef.current!.src = `/assets/vfx/${vfxPath}/index.html`;
     }
 
-    iframeRef.current!.addEventListener("load", handleIframeLoaded);
+    iframeRef.current?.addEventListener("load", handleIframeLoaded);
     return () => {
-      iframeRef.current!.removeEventListener("load", handleIframeLoaded);
+      iframeRef.current?.removeEventListener("load", handleIframeLoaded);
     };
   }, []);
 

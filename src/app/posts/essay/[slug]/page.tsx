@@ -10,7 +10,7 @@ import { PostBody } from "@/app/_components/post-body";
 import { PostHeader } from "@/app/_components/post-header";
 
 export default async function Post({ params }: Params) {
-  const post = getPostBySlug(params.slug);
+  const post = getPostBySlug(`essay/${params.slug}`);
 
   if (!post) {
     return notFound();
@@ -44,7 +44,7 @@ type Params = {
 };
 
 export function generateMetadata({ params }: Params): Metadata {
-  const post = getPostBySlug(params.slug);
+  const post = getPostBySlug(`essay/${params.slug}`);
 
   if (!post) {
     return notFound();
@@ -65,6 +65,6 @@ export async function generateStaticParams() {
   const posts = getAllPosts();
 
   return posts.map((post) => ({
-    slug: post.slug,
+    slug: `${post.category}/${post.slug}`,
   }));
 }
