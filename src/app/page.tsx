@@ -15,7 +15,7 @@ export default function Index() {
     <main>
       <Container>
         <div className="mt-8 max-w-[750px] mx-auto">
-          <VFXBackground vfxPath="bg" />
+          <VFXBackground vfxPath={"bg"} />
           <div className="flex-col md:flex-row flex items-center md:justify-center mt-16 mb-16 md:mb-12 backdrop-filter backdrop-blur-xl bg-opacity-40 bg-gray-800 rounded-lg shadow-lg">
             <VFXStar />
             <section className="w-full flex-col md:flex-row flex items-center md:justify-center backdrop-filter backdrop-blur-sm bg-opacity-40 bg-gray-800 p-6 shadow-lg rounded-lg m-4">
