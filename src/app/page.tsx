@@ -26,7 +26,7 @@ export default function Index() {
                 <h4 className="text-[18px] font-sans font-bold tracking-widest text-white animate-pulse drop-shadow-[0_0_5px_rgba(255,255,255,0.6)]">
                   创 意 发 生 之 地 ， 敬 请 见 证
                 </h4>
-                <p className="text-[15px] font-sans font-bold tracking-widest mt-2 text-white animate-pulse drop-shadow-[0_0_5px_rgba(255,255,255,0.6)]">
+                <p className="text-[15px] font-serif font-extrabold tracking-widest mt-2 text-white animate-pulse drop-shadow-[0_0_5px_rgba(255,255,255,0.6)]">
                   Witness the Magic Happens
                 </p>
               </div>
