@@ -237,7 +237,6 @@ function Star() {
     );
   });
 
-  console.log("uniforms", uniforms);
   const viewport = useThree((state) => state.viewport);
 
   return (
