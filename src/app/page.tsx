@@ -6,6 +6,7 @@ import { CMS_NAME } from "@/lib/constants";
 import PageFooter from "./_components/page-components/PageFooter";
 import VFXBackground from "./_components/page-components/VFXBackground";
 import VFXStar from "./_components/page-components/VFXStar";
+import VFXLogoWall from "./_components/page-components/VFXLogoWall";
 
 export default function Index() {
   const allPosts = getAllPosts();
@@ -15,7 +16,9 @@ export default function Index() {
     <main>
       <Container>
         <div className="mt-8 max-w-[750px] mx-auto">
-          <VFXBackground vfxPath={"bg"} />
+          <div className="fixed top-0 left-0 w-full h-full z-[-1] bg-black">
+            <VFXLogoWall reverseColor={true} />
+          </div>
           <div className="flex-col md:flex-row flex items-center md:justify-center mt-12 mb-8 md:mb-8 backdrop-filter backdrop-blur-xl bg-opacity-40 bg-gray-800 rounded-lg shadow-lg">
             <VFXStar />
             <section className="w-full flex-col md:flex-row flex items-center md:justify-center backdrop-filter backdrop-blur-sm bg-opacity-40 bg-gray-800 p-6 shadow-lg rounded-lg m-4">

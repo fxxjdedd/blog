@@ -5,7 +5,7 @@ import VFXLogoWall from "./VFXLogoWall";
 export function PageFooter() {
   return (
     <footer className="relative mt-8 mb-16">
-      <VFXLogoWall />
+      <VFXLogoWall reverseColor={false} />
       <div className="backdrop-filter backdrop-blur-sm bg-white bg-opacity-10 rounded-lg">
         <div className="py-16 flex flex-col lg:flex-row items-center justify-center">
           <div className="w-36 h-36 rounded-full p-2 bg-blue-700 bg-opacity-80 shadow-lg">
@@ -20,7 +20,7 @@ export function PageFooter() {
           </div>
           <div className="flex flex-col justify-center items-center lg:pl-4 lg:w-1/2">
             <p
-              className="text-black text-3xl font-extrabold mb-4 tracking-wide font-serif"
+              className="text-black text-2xl md:text-3xl font-extrabold mb-4 tracking-wide font-serif"
               style={{
                 WebkitTextStroke: "2px white",
                 paintOrder: "stroke fill",
