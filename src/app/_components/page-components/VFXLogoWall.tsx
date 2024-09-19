@@ -35,6 +35,9 @@ const StarShader = {
     const mat2 rotMat = mat2(cos(rot), -sin(rot), sin(rot), cos(rot));
 
 
+    float circle(vec2 uv, vec2 center, float radius) {
+      return smoothstep(radius-0.02, radius+0.02, distance(uv, center));
+    }
 
     void main() {
       vec2 uv = vUv * 2.0 - 1.0;
@@ -55,23 +58,23 @@ const StarShader = {
       mouseUV = rotMat * mouseUV;
 
       vec3 col = texture2D(map, uv).rgb;
-#ifdef REVERSE_COLOR
-      // col.rgb = 1.0 - col.rgb;
-#endif
 
-
-      vec2 currentBlock = fract(uv * 4.0);
+      vec2 blockUV = (fract(uv * 4.0) + 1.0 / 2.0);
       vec2 blockId = floor(uv * 4.0);
       vec2 mouseBlockId = floor(mouseUV * 4.0);
+      vec2 mouseBlockUV = (fract(mouseUV * 4.0) + 1.0 / 2.0);
+      float dist = distance(blockUV, mouseBlockUV);
 
-
+      float circleDist = circle(uv, mouseUV, 0.1);
       vec3 blockColor = col;
 
       if (blockId.x == mouseBlockId.x && blockId.y == mouseBlockId.y) {
-        blockColor = col;
+        blockColor = mix((1.0 - col), col, 1.0 - circleDist);
       } else {
         blockColor = 1.0 - col;
       }
+
+      blockColor = mix((1.0-col), col, (1.0-circleDist));
       
       gl_FragColor = vec4(blockColor, 0.8);
     }
