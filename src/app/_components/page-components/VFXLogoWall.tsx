@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useMemo } from "react";
+import React, { useEffect, useMemo, useRef, useState } from "react";
 import { Canvas, useFrame, useThree } from "@react-three/fiber";
 import {
   AdditiveBlending,
@@ -22,39 +22,80 @@ const StarShader = {
     }
   `,
   fragmentShader: `
+
+    #define TIME time*0.01
+
     varying vec2 vUv;
     uniform sampler2D map;
     uniform vec2 resolution;
     uniform float time;
+    uniform float randomBlockId;
+    uniform vec2 mousePosition;
     const float rot = 30.0/180.0*3.14159265359;
     const mat2 rotMat = mat2(cos(rot), -sin(rot), sin(rot), cos(rot));
+
+
+
     void main() {
       vec2 uv = vUv * 2.0 - 1.0;
+
       uv.x *= resolution.x / resolution.y;
 
       uv *= 0.8;
-      uv += vec2(time*0.1, time*0.1);
+      uv += vec2(TIME, TIME);
       uv = rotMat * uv;
 
 
+      vec2 mouseUV = mousePosition;
+      mouseUV = mouseUV * 2.0 - 1.0;
+      mouseUV.x *= resolution.x / resolution.y;
+
+      mouseUV *= 0.8;
+      mouseUV += vec2(TIME, TIME);
+      mouseUV = rotMat * mouseUV;
+
       vec3 col = texture2D(map, uv).rgb;
 #ifdef REVERSE_COLOR
-      col.rgb = 1.0 - col.rgb;
+      // col.rgb = 1.0 - col.rgb;
 #endif
 
 
       vec2 currentBlock = fract(uv * 4.0);
+      vec2 blockId = floor(uv * 4.0);
+      vec2 mouseBlockId = floor(mouseUV * 4.0);
 
-      vec3 blockColor = currentBlock.x * col;
 
+      vec3 blockColor = col;
+
+      if (blockId.x == mouseBlockId.x && blockId.y == mouseBlockId.y) {
+        blockColor = col;
+      } else {
+        blockColor = 1.0 - col;
+      }
       
-
       gl_FragColor = vec4(blockColor, 0.8);
     }
   `,
 };
 
 function LogoWall(props: { reverseColor: boolean }) {
+  const mousePositionRef = useRef(new Vector2(0, 0));
+
+  useEffect(() => {
+    const handleMouseMove = (event: MouseEvent) => {
+      mousePositionRef.current.set(
+        event.clientX / window.innerWidth,
+        1 - event.clientY / window.innerHeight // Invert Y-axis
+      );
+    };
+
+    window.addEventListener("mousemove", handleMouseMove);
+
+    return () => {
+      window.removeEventListener("mousemove", handleMouseMove);
+    };
+  }, []);
+
   const uniforms = useMemo(() => {
     const texture = new TextureLoader().load("/assets/textures/bg-wall.jpg");
     texture.wrapS = RepeatWrapping;
@@ -63,6 +104,8 @@ function LogoWall(props: { reverseColor: boolean }) {
       time: { value: 0 },
       resolution: { value: new Vector2() },
       map: { value: texture },
+      randomBlockId: { value: 0 },
+      mousePosition: { value: new Vector2() },
     };
   }, []);
 
@@ -83,6 +126,11 @@ function LogoWall(props: { reverseColor: boolean }) {
     uniforms.resolution.value.set(
       state.size.width * state.viewport.dpr,
       state.size.height * state.viewport.dpr
+    );
+    uniforms.randomBlockId.value = Math.floor(Math.random() * 4);
+    uniforms.mousePosition.value.set(
+      mousePositionRef.current.x,
+      mousePositionRef.current.y
     );
   });
 
