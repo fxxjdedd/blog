@@ -7,6 +7,7 @@ import PageFooter from "./_components/page-components/PageFooter";
 import VFXBackground from "./_components/page-components/VFXBackground";
 import VFXStar from "./_components/page-components/VFXStar";
 import VFXLogoWall from "./_components/page-components/VFXLogoWall";
+import VFXLogoSphere from "./_components/page-components/VFXLogoSphere";
 
 export default function Index() {
   const allPosts = getAllPosts();
@@ -17,9 +18,9 @@ export default function Index() {
       <Container>
         <div className="mt-8 max-w-[750px] mx-auto">
           <div className="fixed top-0 left-0 w-full h-full z-[-1] bg-black">
-            <VFXLogoWall reverseColor={true} />
+            <VFXLogoSphere reverseColor={true} />
           </div>
-          <div className="flex-col md:flex-row flex items-center md:justify-center mt-12 mb-8 md:mb-8 backdrop-filter backdrop-blur-xl bg-opacity-40 bg-gray-800 rounded-lg shadow-lg">
+          {/* <div className="flex-col md:flex-row flex items-center md:justify-center mt-12 mb-8 md:mb-8 backdrop-filter backdrop-blur-xl bg-opacity-40 bg-gray-800 rounded-lg shadow-lg">
             <VFXStar />
             <section className="w-full flex-col md:flex-row flex items-center md:justify-center backdrop-filter backdrop-blur-sm bg-opacity-40 bg-gray-800 p-6 shadow-lg rounded-lg m-4">
               <h1 className="text-5xl md:text-8xl font-bold tracking-tighter leading-tight md:pr-8 text-transparent bg-clip-text bg-gradient-to-r from-pink-300 to-rose-400 animate-pulse drop-shadow-[0_0_5px_rgba(255,192,203,0.6)] glow-pink-500">
@@ -49,7 +50,7 @@ export default function Index() {
               ))}
             </div>
           </div>
-          <PageFooter />
+          <PageFooter /> */}
         </div>
       </Container>
     </main>
